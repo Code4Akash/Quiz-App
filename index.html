@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: bisque;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+
+      .quiz-container {
+        border: 1px solid black;
+        border-radius: 10px;
+        box-shadow: 0 0 10px black;
+        width: 500px;
+        background-color: white;
+      }
+      #Qna {
+        font-size: 20px;
+        padding: 30px;
+        text-align: center;
+      }
+      ul {
+        padding-bottom: 50px;
+      }
+      li {
+        list-style-type: none;
+        padding-left: 20px;
+        margin-bottom: 20px;
+      }
+      #submit {
+        background-color: rgb(236, 152, 17);
+        text-align: center;
+        width: 100%;
+        height: 20px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border: none;
+        color: white;
+      }
+      #submit:hover {
+        color: yellow;
+      }
+    }
+  </style>
+  <body>
+    <div class="quiz-container">
+      <h2 id="Qna">Question Tag</h2>
+      <ul>
+        <li>
+          <input
+            type="radio"
+            class="answer"
+            id="answer-option-a"
+            name="quiz-options"
+          />
+          <label for="option-a" id="text-option-a">Option a</label>
+        </li>
+
+        <li>
+          <input
+            type="radio"
+            class="answer"
+            id="answer-option-b"
+            name="quiz-options"
+          />
+          <label for="option-b" id="text-option-b">Option b</label>
+        </li>
+
+        <li>
+          <input
+            type="radio"
+            class="answer"
+            id="answer-option-c"
+            name="quiz-options"
+          />
+          <label for="option-c" id="text-option-c">Option c</label>
+        </li>
+
+        <li>
+          <input
+            type="radio"
+            class="answer"
+            id="answer-option-d"
+            name="quiz-options"
+          />
+          <label for="option-d" id="text-option-d">Option d</label>
+        </li>
+      </ul>
+      <button type="button" id="submit">Submit</button>
+    </div>
+
+    <script>
+      const quiz = [
+        {
+          question: "Which HTML tag is used to define an internal style sheet?",
+          ans1text: "<script>",
+          ans2text: "<style>",
+          ans3text: "<css>",
+          ans4text: "<link>",
+          answer: "<style>",
+        },
+        {
+          question: "Which company developed the Java programming language?",
+          ans1text: "Apple",
+          ans2text: "Microsoft",
+          ans3text: "Sun Microsystems",
+          ans4text: "Google",
+          answer: "Sun Microsystems",
+        },
+        {
+          question: "What does CSS stand for?",
+          ans1text: "Creative Style Sheets",
+          ans2text: "Computer Style Sheets",
+          ans3text: "Cascading Style Sheets",
+          ans4text: "Custom Style Sheets",
+          answer: "Cascading Style Sheets",
+        },
+        {
+          question: "Which of the following is NOT a JavaScript data type?",
+          ans1text: "Boolean",
+          ans2text: "Undefined",
+          ans3text: "Float",
+          ans4text: "Number",
+          answer: "Float",
+        },
+        {
+          question: "Which symbol is used for comments in JavaScript?",
+          ans1text: "//",
+          ans2text: "/* */",
+          ans3text: "#",
+          ans4text: "<!-- -->",
+          answer: "//",
+        },
+      ];
+
+      let qna = document.getElementById("Qna");
+      console.log(qna.textContent);
+
+      const option_a = document.getElementById("text-option-a");
+      const option_b = document.getElementById("text-option-b");
+      const option_c = document.getElementById("text-option-c");
+      const option_d = document.getElementById("text-option-d");
+
+      let rac = document.getElementsByClassName("answer");
+      console.log(rac);
+
+      const submit = document.getElementById("submit");
+
+      let currentQuestion = 0;
+      let score = 0;
+
+      console.log(quiz[currentQuestion].question);
+
+      qna.textContent = quiz[currentQuestion].question;
+      option_a.textContent = quiz[currentQuestion].ans1text;
+      option_b.textContent = quiz[currentQuestion].ans2text;
+      option_c.textContent = quiz[currentQuestion].ans3text;
+      option_d.textContent = quiz[currentQuestion].ans4text;
+
+      submit.addEventListener("click", () => {
+        const checkedAns = document.querySelector(
+          'input[type="radio"]:checked'
+        );
+        if (checkedAns === null) {
+          alert("Please select an answer");
+        } else {
+          if (
+            checkedAns.nextElementSibling.textContent ===
+            quiz[currentQuestion].answer
+          ) {
+            score++;
+          }
+          currentQuestion++;
+          if (currentQuestion < quiz.length) {
+            qna.textContent = quiz[currentQuestion].question;
+            option_a.textContent = quiz[currentQuestion].ans1text;
+            option_b.textContent = quiz[currentQuestion].ans2text;
+            option_c.textContent = quiz[currentQuestion].ans3text;
+            option_d.textContent = quiz[currentQuestion].ans4text;
+            checkedAns.checked=false;
+          }else{
+            alert("Your score is "+ score+ "out of"+quiz.length);
+            location.reload();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
